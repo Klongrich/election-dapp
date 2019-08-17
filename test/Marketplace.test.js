@@ -16,5 +16,10 @@ contract('Marketplace', (accounts) => {
             assert.notEqual(address, undefined)
 
         })
+
+        it('has a name', async () => {
+            const name = await marketplace.name()
+            assert.equal(name, 'silk road')
+        })
     })
 })
