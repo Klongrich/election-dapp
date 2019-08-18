@@ -11,6 +11,7 @@ class App extends Component {
     await this.loadBlockchaindata();
   }
 
+  //Connecting to metaMask wallet
   async loadWeb3() {
       
       if (window.ethereum) {
@@ -25,6 +26,7 @@ class App extends Component {
       }
   }
 
+  //Function called to get data from the address / block-chain we are connected to
   async loadBlockchaindata() {
     const web3 = window.web3
 
