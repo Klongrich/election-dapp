@@ -52,6 +52,15 @@ contract Marketplace {
 
         address payable _seller = _product.owner;
 
+        require(_product.id > 0 && _product.id <= productCount);
+
+        //Making sure there's another Ether
+        require(msg.value >= _product.price);
+
+        require(!_product.purchased);
+
+        require(_seller != msg.sender);
+
         _product.owner = msg.sender;
 
         _product.purchased = true;
