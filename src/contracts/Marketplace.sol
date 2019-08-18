@@ -9,11 +9,19 @@ contract Marketplace {
         uint id; 
         string name;
         uint price;
-        address owner;
+        address payable owner;
         bool purchased;
     }
 
     event ProductCreated(
+        uint id,
+        string name,
+        uint price,
+        address owner,
+        bool purchased
+    );
+
+    event ProductPurchased(
         uint id,
         string name,
         uint price,
@@ -36,5 +44,23 @@ contract Marketplace {
         products[productCount] = Product(productCount, _name, _price, msg.sender, false);
 
         emit ProductCreated(productCount, _name, _price, msg.sender, false);
+    }
+
+    function purchaseProduct(uint _id) public payable {
+        
+        Product memory _product = products[_id];
+
+        address payable _seller = _product.owner;
+
+        _product.owner = msg.sender;
+
+        _product.purchased = true;
+
+        products[_id] = _product;
+
+        address(_seller).transfer(msg.value);
+
+        emit ProductPurchased(productCount, _product.name, _product.price, msg.sender, false);
+
     }
 }
