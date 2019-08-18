@@ -31,11 +31,20 @@ class App extends Component {
     const web3 = window.web3
 
     const accounts = await web3.eth.getAccounts()
-    console.log(accounts);
-
     this.setState({account: accounts[0]})
 
-    console.log(Marketplace.abi)
+    //conecting to the smart contract
+    const networkID = await web3.eth.net.getId()
+    const networkData = Marketplace.networks[networkID]
+    
+    if(networkData) {
+      const abi = Marketplace.abi
+      const address = Marketplace.networks[networkID].address
+      const marketplace = web3.eth.Contract(abi, address)
+    } else {
+      window.alert('Marketplace contract not deployed to dectected network')
+    }
+
   }
 
   constructor(props) {
