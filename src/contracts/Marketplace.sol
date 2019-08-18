@@ -60,7 +60,7 @@ contract Marketplace {
 
         address(_seller).transfer(msg.value);
 
-        emit ProductPurchased(productCount, _product.name, _product.price, msg.sender, false);
+        emit ProductPurchased(productCount, _product.name, _product.price, msg.sender, true);
 
     }
 }
